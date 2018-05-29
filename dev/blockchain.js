@@ -1,10 +1,12 @@
+const sha256 = require('sha256');
+
 function Blockchain() {
 	this.chain = [];
 	this.pendingTransactions = [];
 }
 
 Blockchain.prototype.createNewBlock = function(nounce, previousBlockHash, hash) {
-	const newBlock = {
+	const newBlock = { //Use of Constant to make immutable blocks , entries will never be changed
 		index: this.chain.length + 1,
 		timestamp: Date.now(),
 		transactions : this.pendingTransactions,
@@ -20,9 +22,11 @@ Blockchain.prototype.createNewBlock = function(nounce, previousBlockHash, hash) 
 
 }
 
-Blockchain.prorotype.getLastBlock = function() {
+Blockchain.prototype.getLastBlock = function() {
 	return this.chain[this.chain.length - 1];
 }
+
+
 
 Blockchain.prototype.createNewTransaction = function(amount,sender,recipient) {
 	const newTransaction = {
@@ -31,6 +35,12 @@ Blockchain.prototype.createNewTransaction = function(amount,sender,recipient) {
 		recipient: recipient
 	};
 	this.pendingTransactions.push(newTransaction)
+}
+
+Blockchain.prototype.hashBlock = function(previousBlockHash,currentBlockData,nounce) {
+	const dataAsString = previousBlockHash + nounce.toString() + JSON.stringify(currentBlockData);
+	const hash = sha256(dataAsString);
+	return hash;
 }
 
 module.exports = Blockchain;

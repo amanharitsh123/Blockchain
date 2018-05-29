@@ -1,6 +1,13 @@
 const Blockchain = require('./blockchain')
 const bitcoin =  new Blockchain();
-bitcoin.createNewBlock(2389,'IDIHFPBSNASJLFB','4C8D4C6DCFEW8');
-bitcoin.createNewBlock(2312,'IDIHFPBSNASJLFB','4C8D4C6DCFEW8');
-bitcoin.createNewBlock(1234,'IDIHFPBSNASJLFB','4C8D4C6DCFEW8');
-console.log(bitcoin);
+const previousBlockHash = 'NDDBDHBVIBOKJOKJKNN'
+const currentBlockData = [
+	{
+		amount: 10,
+		sender :'csdacdscdscsd',
+		recipient :'NCKNANOOPMLPAWJDIAMLM'
+	}
+
+];
+const nounce = 100;
+console.log(bitcoin.hashBlock(previousBlockHash,currentBlockData,nounce));
